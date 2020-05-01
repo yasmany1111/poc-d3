@@ -17,3 +17,4 @@ export const bottomRowHeight = 60;
 // colors
 export const primaryColor = '#010440';
 export const leftBarColor = '#adaec0';
+export const circleColor = '#288ee2';

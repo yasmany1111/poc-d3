@@ -33,7 +33,7 @@ export const fakeNewsDefault = [
   },
   {
     ...model,
-    topicName: 'spiderman',
+    topicName: 'hobbit',
     date: 3,
   },
   {

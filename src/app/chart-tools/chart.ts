@@ -12,6 +12,7 @@ import {
   verticalRowWidth,
   primaryColor,
   leftBarColor,
+  circleColor,
 } from './properties';
 import { fakeNewsDefault, countryData } from './data';
 import { getAllDifferentTopics } from './data/data-parse';
@@ -88,15 +89,19 @@ export const getChart = async (chartToolService: ChartToolsService) => {
     .attr('r', (d: any) => {
       return z(d.newsAmount);
     })
-    .style('fill', '#0092b3')
-    .style('opacity', '0.7')
-    .attr('stroke', 'black');
+    .style('fill', circleColor)
+    .style('stroke', circleColor)
+    .style('opacity', '0.85');
 
   registerScrollEvents(svgMainChart, topicY.topicNames, dotElement);
   initDebugger(dotElement, simpleDebugger);
   debugOptions(svgMainChart, topicY.topicNames, dotElement);
 
   const topicX = generateXAxis(svgMainChart, fakeNewsDefault);
+  x = d3
+    .scaleLinear()
+    .domain([0, topicX.dateRegions])
+    .range([verticalRowWidth, width]);
   dotElement.attr('cx', (d: any) => {
     return x(d.date) + topicX.dateWidth / 2;
   });
@@ -126,9 +131,8 @@ const generateYAxis = (svgMainChart, data) => {
     .attr('height', (d: any) => {
       return 50;
     })
-    .style('fill', 'purple')
-    .style('opacity', '0.7')
-    .attr('stroke', 'black')
+    .style('fill', '#000000')
+    .style('stroke', '#000000')
     .text((d: any) => {
       return d;
     });
@@ -155,6 +159,7 @@ const generateXAxis = (svgMainChart, data) => {
     'Friday',
     'Staurday',
     'Sunday',
+    'Another day',
   ];
 
   const inViewDatesAmount = datesElements.length;
@@ -195,6 +200,7 @@ const generateXAxis = (svgMainChart, data) => {
 
   return {
     dateWidth: (width - verticalRowWidth) / inViewDatesAmount,
+    dateRegions: datesElements.length,
   };
 };
 
@@ -268,7 +274,7 @@ const initDebugger = (dotElement, simpleDebugger) => {
     const selected = dotElementCustom.attr('selected') === 'true';
 
     if (selected) {
-      dotElementCustom.style('fill', '#0092b3');
+      dotElementCustom.style('fill', circleColor);
       dotElementCustom.attr('selected', 'false');
     } else {
       dotElementCustom.style('fill', 'red');
