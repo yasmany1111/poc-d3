@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { quickGet } from './utils/quick-get';
-import { getChart } from './utils/chart';
+import { quickGet } from './chart-tools/quick-get';
+import { getChart } from './chart-tools/chart';
 import { Observable } from 'rxjs';
+import {
+  ChartToolsService,
+  ChartToolEvents,
+} from './services/chart-tool.service';
 
 @Component({
   selector: 'app-root',
@@ -11,15 +15,25 @@ import { Observable } from 'rxjs';
 export class AppComponent implements OnInit {
   public debugString = '';
 
-  constructor() {
-    quickGet('http://127.0.0.1:5000/data.csv').then((data) => {
-      // console.log(data);
-    });
-  }
+  constructor(private chartToolService: ChartToolsService) {}
 
   public async ngOnInit() {
-    (await getChart()).subscribe((debugMessage: string) => {
-      this.debugString = debugMessage;
-    });
+    (await getChart(this.chartToolService)).subscribe(
+      (debugMessage: string) => {
+        this.debugString = debugMessage;
+      }
+    );
+  }
+
+  //
+  public onEventMapComponentScroll(event) {
+    if (event.wheelDeltaY > 0) {
+      this.chartToolService.fireEvent(ChartToolEvents.ScrollDown);
+    } else {
+      this.chartToolService.fireEvent(ChartToolEvents.ScrollUp);
+    }
+    event.preventDefault();
+
+    return false;
   }
 }

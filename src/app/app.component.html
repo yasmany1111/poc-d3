@@ -1,3 +1,13 @@
-<button>GITHUB</button>
-<div class="main-container"></div>
+<button onclick="window.open('https://github.com/yasmany1111/poc-d3')">
+  GITHUB
+</button>
+<div
+  (mousewheel)="onEventMapComponentScroll($event)"
+  class="main-container"
+></div>
+
+<div>
+  <button id="debug1">Debug 1</button>
+</div>
+
 <div>{{ debugString }}</div>

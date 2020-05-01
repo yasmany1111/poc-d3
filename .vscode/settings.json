@@ -1,0 +1,30 @@
+{
+  "files.exclude": {
+    "*.yml": true,
+    "*.json": true,
+    "*.md": true,
+    "karma.conf.js": true,
+    "node_modules": true,
+    "e2e": true,
+    ".edi*": true,
+    ".prettier*": true,
+    ".git**": true,
+    "browserslist": true,
+    "src/*.ts": true,
+    "src/*.ico": true,
+    "src/app/auth": true,
+    "src/app/core": true,
+    "src/app/transloco": true,
+    "src/app/shared": true,
+    // "src/app/app*": true,
+    "src/assets": true,
+    "src/environments": true,
+    "src/index.html": true,
+    "src/styles.scss": true,
+    "src/scss": true,
+    "src/app/game/*.module.ts": true,
+    "src/ts*.json": true,
+    "dist": true
+  },
+  "editor.formatOnSave": true
+}
